@@ -1,20 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import QRCode from "qrcode.react";
+
 import useWindowDimensions from "../utils/useWindowDimensions";
 const fhir = require("../utils/fhir.json");
 
-export default function QrCode({value, legend}) {
+export default function QrCode({value}) {
   const { windowHeight, windowWidth } = useWindowDimensions();
   const smallestSize = (windowWidth/3) < windowHeight ? (windowWidth/3) : windowHeight; // use the smallest window dimension to figure out how big the qr code should be to fit on screen
   const qrCodeSize = smallestSize < 730 ? smallestSize - 80 : 650; // max qr code size 650
 
-  //let userInfoFHIR = formatToFHIR(props.userInfo);
-  const qrValue = value ? value : "Example Value";
-  const legendElt = legend ?
-    (<div style={{wordBreak: "break-all"}}>
-      <pre style={{whiteSpace: "pre-wrap"}}>{legend}</pre>
-    </div>) :
-    (<></>);
+  const [qrValue, updateState] = useState(value ? value : "Example Value");
+  const updateValue = e => {
+    updateState(e.currentTarget.value);
+  };
+
   return (
     <>
     <QRCode
@@ -24,7 +23,7 @@ export default function QrCode({value, legend}) {
       id="canvas"
       size={qrCodeSize}
     />
-    {legendElt}
+    <textarea style={{marginTop: "20px"}} className="nhsuk-textarea" rows="10" value={qrValue} onChange={updateValue}/>
     </>
   );
 }

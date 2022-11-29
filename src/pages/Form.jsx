@@ -68,7 +68,7 @@ export default function AdmitMe() {
                 <DateInput id="birthdate" label="Birthdate" onChange={update} />
               </Col>
               <Col width="one-third">
-                <QrCode value={serialised} legend={serialised}></QrCode>
+                <QrCode value={serialised} key={serialised}></QrCode>
               </Col>
             </Row>
           </Container>
