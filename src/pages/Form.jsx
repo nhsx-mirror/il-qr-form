@@ -43,7 +43,7 @@ export default function AdmitMe() {
               <Col>
                 <Label isPageHeading>ShowMyPatientID QR Code Generator</Label>
                 <LedeText>A generator of QR codes containing various data in various formats.</LedeText>
-                <BodyText>Generate QR code to automatically transfer patient demographic data from the NHS app to clinical systems.</BodyText>
+                <BodyText>Generate a QR code to automatically transfer patient demographic data from the NHS app to clinical systems.</BodyText>
               </Col>
             </Row>
             <Row>
@@ -64,8 +64,6 @@ export default function AdmitMe() {
                 <Input id="nhs_number" name="nhs_number" label="NHS Number" onChange={update} />
                 <Input id="given_name" name="given_name" label="Given Name" onChange={update} />
                 <Input id="family_name" name="family_name" label="Family Name" onChange={update} />
-                <Input id="phone_number" name="phone_number" label="Phone Number" onChange={update} />
-                <Input id="email" name="email" label="Email Address" onChange={update} />
                 <DateInput id="birthdate" label="Birthdate" onChange={update} />
               </Col>
               <Measure

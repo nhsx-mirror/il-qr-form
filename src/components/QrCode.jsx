@@ -12,13 +12,14 @@ export default function QrCode({value, width}) {
   return (
     <>
     <QRCodeCanvas
-      style={{ margin: "0 auto", display: "block" }}
+      style={{ margin: "0 auto 20px", display: "block" }}
       level="M"
       value={qrValue}
       id="canvas"
       size={Math.floor(width || 0)}
     />
-    <textarea style={{marginTop: "20px"}} className="nhsuk-textarea" rows="10" value={qrValue} onChange={updateValue}/>
+    <label className="nhsuk-label" htmlFor="qr-data">QR code data (editable):</label>
+    <textarea id="qr-data" className="nhsuk-textarea" rows="10" value={qrValue} onChange={updateValue}/>
     </>
   );
 }
@@ -30,8 +31,6 @@ export function formatToFHIR(userData) {
     data = data.replace("nhs_number", userData.nhs_number);
     data = data.replace("family_name", userData.family_name);
     data = data.replace("given_name", userData.given_name);
-    data = data.replace("phone_number", userData.phone_number);
-    data = data.replace("email_id", userData.email);
     data = data.replace("birthdate_admitme", userData.birthdate);
   }
   return data;
