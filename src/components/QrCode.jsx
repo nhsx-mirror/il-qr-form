@@ -1,14 +1,9 @@
 import React, {useState} from "react";
-import QRCode from "qrcode.react";
+import {QRCodeCanvas} from "qrcode.react";
 
-import useWindowDimensions from "../utils/useWindowDimensions";
 const fhir = require("../utils/fhir.json");
 
-export default function QrCode({value}) {
-  const { windowHeight, windowWidth } = useWindowDimensions();
-  const smallestSize = (windowWidth/3) < windowHeight ? (windowWidth/3) : windowHeight; // use the smallest window dimension to figure out how big the qr code should be to fit on screen
-  const qrCodeSize = smallestSize < 730 ? smallestSize - 80 : 650; // max qr code size 650
-
+export default function QrCode({value, width}) {
   const [qrValue, updateState] = useState(value ? value : "Example Value");
   const updateValue = e => {
     updateState(e.currentTarget.value);
@@ -16,12 +11,12 @@ export default function QrCode({value}) {
 
   return (
     <>
-    <QRCode
+    <QRCodeCanvas
       style={{ margin: "0 auto", display: "block" }}
       level="M"
       value={qrValue}
       id="canvas"
-      size={qrCodeSize}
+      size={Math.floor(width || 0)}
     />
     <textarea style={{marginTop: "20px"}} className="nhsuk-textarea" rows="10" value={qrValue} onChange={updateValue}/>
     </>

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Measure from "react-measure"
 import { Container, Row, Col, Label, LedeText, BodyText, Input, DateInput, Radios } from "nhsuk-react-components";
 import QrCode, {formatToFHIR} from '../components/QrCode';
 
@@ -67,9 +68,19 @@ export default function AdmitMe() {
                 <Input id="email" name="email" label="Email Address" onChange={update} />
                 <DateInput id="birthdate" label="Birthdate" onChange={update} />
               </Col>
-              <Col width="one-third">
-                <QrCode value={serialised} key={serialised}></QrCode>
-              </Col>
+              <Measure
+                bounds>
+                {({ measureRef, contentRect }) => (
+                  <Col width="one-third">
+                    <div ref={measureRef}>
+                      <QrCode
+                        value={serialised}
+                        key={serialised}
+                        width={contentRect.bounds.width}></QrCode>
+                    </div>
+                  </Col>
+                )}
+              </Measure>
             </Row>
           </Container>
         </main>
