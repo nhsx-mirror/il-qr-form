@@ -9,9 +9,13 @@ const tab_separated_serialise = d => {
   return [d.nhs_number,
     d.family_name,
     d.given_name,
-    d.phone_number,
-    d.email].join('	');
+    d.birthdate].join('	');
 };
+
+const formatBirthdate = ({day, month, year}) => {
+  return `${day}/${month}/${year}`;
+}
+
 
 export default function AdmitMe() {
   sessionStorage.clear();
@@ -22,6 +26,13 @@ export default function AdmitMe() {
     const newState = {...state, data}
     updateState(newState);
   };
+
+  const updateBirthdate = e => {
+    const data = {...state.data};
+    data['birthdate'] = formatBirthdate(e.currentTarget.value);
+    updateState({...state, data});
+  };
+
   const updateSerialise = e => {
     const serialise = {
       free_json: free_json_serialise,
@@ -64,7 +75,7 @@ export default function AdmitMe() {
                 <Input id="nhs_number" name="nhs_number" label="NHS Number" onChange={update} />
                 <Input id="given_name" name="given_name" label="Given Name" onChange={update} />
                 <Input id="family_name" name="family_name" label="Family Name" onChange={update} />
-                <DateInput id="birthdate" label="Birthdate" onChange={update} />
+                <DateInput id="birthdate" label="Birthdate" onChange={updateBirthdate} />
               </Col>
               <Measure
                 bounds>

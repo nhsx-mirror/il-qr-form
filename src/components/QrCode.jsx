@@ -27,11 +27,10 @@ export default function QrCode({value, width}) {
 // Make sure the user data is in FHIR format
 export function formatToFHIR(userData) {
   let data = JSON.stringify(fhir);
-  if (typeof userData.nhs_number != "undefined") {
-    data = data.replace("nhs_number", userData.nhs_number);
-    data = data.replace("family_name", userData.family_name);
-    data = data.replace("given_name", userData.given_name);
-    data = data.replace("birthdate_admitme", userData.birthdate);
-  }
+  console.log(userData.birthdate);
+  data = data.replace("nhs_number", userData.nhs_number || "");
+  data = data.replace("family_name", userData.family_name || "");
+  data = data.replace("given_name", userData.given_name || "");
+  data = data.replace("birthdate_admitme", userData.birthdate || "");
   return data;
 }
